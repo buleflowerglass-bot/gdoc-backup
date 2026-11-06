@@ -1,0 +1,136 @@
+:root {
+  --bg: #ffffff;
+  --fg: #202124;
+  --muted: #5f6368;
+  --line: #dadce0;
+  --card: #f6f8fc;
+  --accent: #1a73e8;
+  --danger: #d93025;
+  --ok: #188038;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202124;
+    --fg: #e8eaed;
+    --muted: #9aa0a6;
+    --line: #3c4043;
+    --card: #2b2c2f;
+    --accent: #8ab4f8;
+    --danger: #f28b82;
+    --ok: #81c995;
+  }
+}
+
+* { box-sizing: border-box; }
+body {
+  width: 360px;
+  margin: 0;
+  padding: 12px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.5 -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+h1 { font-size: 15px; margin: 0; }
+
+.card { background: var(--card); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+.cur-title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cur-status { color: var(--muted); font-size: 12px; margin: 2px 0 8px; }
+.cur-status.excluded { color: var(--danger); }
+
+.row { display: flex; gap: 8px; }
+.row input[type="text"] { flex: 1; }
+
+button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+@media (prefers-color-scheme: dark) { button { color: #202124; } }
+button.ghost { background: transparent; color: var(--accent); }
+button:disabled { opacity: .5; cursor: default; }
+
+input[type="text"], input[type="number"], select {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font: inherit;
+}
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+.tabs button {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  color: var(--muted);
+  padding: 6px 12px;
+}
+.tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.pane { display: none; }
+.pane.active { display: block; }
+
+.check { display: block; margin-bottom: 8px; }
+.field { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.field input[type="text"] { width: 150px; }
+.field input[type="number"] { width: 80px; }
+.field select { width: 100px; }
+.pane > button.ghost { margin-top: 4px; }
+
+.hint { color: var(--muted); font-size: 12px; margin: 0 0 8px; }
+.msg { font-size: 12px; margin-top: 6px; min-height: 16px; color: var(--muted); }
+.msg.err { color: var(--danger); }
+.msg.ok { color: var(--ok); }
+.empty { color: var(--muted); text-align: center; margin: 14px 0; }
+
+.list { list-style: none; margin: 8px 0; padding: 0; max-height: 220px; overflow-y: auto; }
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.list .txt { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list .sub { display: block; color: var(--muted); font-size: 11px; }
+.list .del {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 6px;
+}
+.list .del:hover { color: var(--danger); }
+
+.badge {
+  font-size: 11px;
+  border-radius: 10px;
+  padding: 0 7px;
+  background: var(--card);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.badge.done { color: var(--ok); }
+.badge.failed { color: var(--danger); }
+
+/* 开关 */
+.switch { position: relative; width: 36px; height: 20px; display: inline-block; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch span {
+  position: absolute; inset: 0; background: var(--line); border-radius: 20px; transition: .15s; cursor: pointer;
+}
+.switch span::before {
+  content: ""; position: absolute; width: 16px; height: 16px; left: 2px; top: 2px;
+  background: #fff; border-radius: 50%; transition: .15s;
+}
+.switch input:checked + span { background: var(--accent); }
+.switch input:checked + span::before { transform: translateX(16px); }

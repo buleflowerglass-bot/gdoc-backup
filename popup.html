@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>文档自动备份</h1>
+    <label class="switch" title="总开关">
+      <input type="checkbox" id="enabled">
+      <span></span>
+    </label>
+  </header>
+
+  <section class="card" id="current">
+    <div class="cur-title" id="curTitle">—</div>
+    <div class="cur-status" id="curStatus"></div>
+    <div class="row" id="curActions">
+      <button id="btnBackup">立即备份</button>
+      <button id="btnToggleExclude" class="ghost">加入排除名单</button>
+    </div>
+    <div class="msg" id="curMsg"></div>
+  </section>
+
+  <nav class="tabs">
+    <button data-tab="settings" class="active">设置</button>
+    <button data-tab="exclude">排除名单</button>
+    <button data-tab="logs">记录</button>
+  </nav>
+
+  <div class="pane active" id="tab-settings">
+    <label class="check"><input type="checkbox" id="backupOnOpen"> 打开文档时自动备份</label>
+    <label class="check"><input type="checkbox" id="periodic"> 定时备份已打开的标签页</label>
+
+    <div class="field">
+      <span>同一文件最短备份间隔（分钟）</span>
+      <input type="number" id="intervalMin" min="5" max="1440">
+    </div>
+    <div class="field">
+      <span>文档格式</span>
+      <select id="docFormat"></select>
+    </div>
+    <div class="field">
+      <span>表格格式</span>
+      <select id="sheetFormat"></select>
+    </div>
+    <div class="field">
+      <span>下载子文件夹</span>
+      <input type="text" id="folder" placeholder="GoogleBackup">
+    </div>
+    <button class="ghost" id="btnOpenFolder">打开下载文件夹</button>
+  </div>
+
+  <div class="pane" id="tab-exclude">
+    <p class="hint">可填：文件链接、文件 ID，或标题关键词（标题包含该词就不备份）。</p>
+    <div class="row">
+      <input type="text" id="excludeInput" placeholder="粘贴链接 / ID / 关键词">
+      <button id="btnAddExclude">添加</button>
+    </div>
+    <div class="msg" id="excludeMsg"></div>
+    <ul class="list" id="excludeList"></ul>
+    <p class="empty" id="excludeEmpty">名单是空的</p>
+  </div>
+
+  <div class="pane" id="tab-logs">
+    <ul class="list" id="logList"></ul>
+    <p class="empty" id="logEmpty">还没有备份记录</p>
+    <button class="ghost" id="btnClearLogs">清空记录</button>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
